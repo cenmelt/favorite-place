@@ -23,8 +23,7 @@ services:
 
   server:
     container_name: esgiserver
-    build:
-      context: server
+    image: ghcr.io/cenmelt/favorite-place-server:latest
     ports:
       - 3000:3000
     depends_on:
@@ -41,15 +40,12 @@ services:
       timeout: 5s
       retries: 10
       start_period: 10s
-    volumes:
-      - /app/node_modules
     networks:
       - app-network
 
   client:
     container_name: esgiclient
-    build:
-      context: client
+    image: ghcr.io/cenmelt/favorite-place-client:latest
     ports:
       - 801:80
     depends_on:
@@ -57,9 +53,6 @@ services:
         condition: service_healthy
       server:
         condition: service_healthy
-    volumes:
-      - ./client:/app
-      - /app/node_modules
     networks:
       - app-network
 
