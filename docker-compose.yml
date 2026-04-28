@@ -5,6 +5,7 @@ services:
   db:
     container_name: esgipostgres
     image: postgres:15
+    restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: supersecret
@@ -25,6 +26,7 @@ services:
     container_name: esgiserver
     build:
       context: server
+    restart: unless-stopped
     ports:
       - 3000:3000
     depends_on:
@@ -50,6 +52,7 @@ services:
     container_name: esgiclient
     build:
       context: client
+    restart: unless-stopped
     ports:
       - 801:80
     depends_on:
